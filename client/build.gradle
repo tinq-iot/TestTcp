@@ -1,0 +1,8 @@
+
+apply plugin: "java"
+
+//Set JDK source/target to version 7
+sourceCompatibility=1.7
+targetCompatibility=1.7
+
+

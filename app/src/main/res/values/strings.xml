@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TestTcp</string>
+    <string name="server_ip">Server ip:</string>
+    <string name="port1">Port 1</string>
+    <string name="port2">Port 2</string>
+    <string name="ip_mask">xxx.xxx.xxx.xxx</string>
+    <string name="start">Start</string>
+</resources>
