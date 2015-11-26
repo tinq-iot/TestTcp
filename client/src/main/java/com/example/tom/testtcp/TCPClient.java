@@ -5,7 +5,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class TCPClient {
 
@@ -15,20 +17,24 @@ public class TCPClient {
     private static final int port2 = 443;
     private static final String TAG = "TCPClient";
 
+    private static MySocket socket1;
+    private static MySocket socket2;
+    private static int countSocket1 = 0;
+    private static int countSocket2 = 0;
 
     public static void main(String[] args) throws InterruptedException {
 
 
         MyLog.setLogger(new LogImpl());
-        Executor e = Executors.newCachedThreadPool();
+        ExecutorService e = Executors.newCachedThreadPool();
         MySocket.setExecutor(e);
 
 
         MyLog.d(TAG, "Starting...");
 
-        MySocket socket1 = new MySocket(IP, port1, null);
+        socket1 = new MySocket(IP, port1, cb);
         socket1.start();
-        MySocket socket2 = new MySocket(IP, port2, null);
+        socket2 = new MySocket(IP, port2, cb);
         socket2.start();
 
         MyLog.d(TAG, "Waiting 5 sec to connect...");
@@ -41,10 +47,9 @@ public class TCPClient {
             socket1.write(msg);
             socket2.write(msg);
         }
-        while (true) {
-            Thread.sleep(5000);
-            //sleep forever...
-        }
+        Thread.sleep(1000);
+        e.shutdown();
+        e.awaitTermination(1, TimeUnit.HOURS);
     }
 
     private static class LogImpl implements MyLogIntf {
@@ -74,4 +79,32 @@ public class TCPClient {
             }
         }
     }
+
+    private static final MySocket.MySocketCallbacks cb = new MySocket.MySocketCallbacks() {
+        @Override
+        public void onConnected(int port) {
+
+        }
+
+        @Override
+        public void onError(String msg, Exception e) {
+
+        }
+
+        @Override
+        public void onMessageArrived(int port, String msg) {
+
+            if (port == port1) {
+                countSocket1++;
+                if (countSocket1 == Constants.TEST_MSG_COUNT) {
+                    socket1.close();
+                }
+            } else if (port == port2) {
+                countSocket2++;
+                if (countSocket2 == Constants.TEST_MSG_COUNT) {
+                    socket2.close();
+                }
+            }
+        }
+    };
 }
