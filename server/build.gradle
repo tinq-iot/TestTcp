@@ -1,8 +1,11 @@
 
 apply plugin: "java"
+apply plugin: "application"
 
 //Set JDK source/target to version 7
 sourceCompatibility=1.7
 targetCompatibility=1.7
+
+mainClassName = "com.example.tom.testtcp.TcpServer"
 
 

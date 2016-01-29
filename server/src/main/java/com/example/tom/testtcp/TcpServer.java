@@ -9,12 +9,13 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-class TCPServer {
+class TcpServer
+{
 
     private boolean running = true;
 
     public static void main(String argv[]) throws Exception {
-        TCPServer server = new TCPServer();
+        TcpServer server = new TcpServer();
         List<Integer> ports = new ArrayList<>();
         for (String p : argv) {
             ports.add(Integer.parseInt(p));
