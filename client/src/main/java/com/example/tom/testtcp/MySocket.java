@@ -16,6 +16,8 @@ public class MySocket implements Runnable, Closeable {
     private final String ip;
     private static Executor myExecutor = null;
     private final MySocketCallbacks cb;
+    private boolean connected = false;
+    private int count;
 
     public MySocket(String ip, int port, MySocketCallbacks cb) {
         this.port = port;
@@ -24,12 +26,16 @@ public class MySocket implements Runnable, Closeable {
             throw new IllegalStateException("call setExecutor first");
         }
         this.cb = cb;
+        count = 0;
     }
 
     public static void setExecutor(Executor executor) {
         myExecutor = executor;
     }
 
+    public int getPort() {
+        return port;
+    }
 
     @Override
     public void run() {
@@ -41,6 +47,7 @@ public class MySocket implements Runnable, Closeable {
             writer1 = new BufferedWriter(new OutputStreamWriter(clientSocket1.getOutputStream()));
             //DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
             MyLog.d(TAG, "Socket on port " + port + " created");
+            connected = true;
             cb.onConnected(port);
 
         } catch (Exception e) {
@@ -57,7 +64,15 @@ public class MySocket implements Runnable, Closeable {
     public void close() {
         try {
             writer1.close();
+        } catch (Exception e) {
+            //ignore
+        }
+        try {
             reader1.stop();
+        } catch (Exception e) {
+            //ignore
+        }
+        try {
             clientSocket1.close();
         } catch (Exception e) {
             //ignore
@@ -65,7 +80,11 @@ public class MySocket implements Runnable, Closeable {
     }
 
     public void write(String msg) {
-        MyLog.d(TAG, "Writing (" + port + "): " + msg);
+        if (!connected) {
+            throw new IllegalStateException("Socket not yet connected");
+        }
+        count++;
+        MyLog.d(TAG, "Writing (" + port + "): message " + count);
         try {
             writer1.write(msg);
             writer1.newLine();

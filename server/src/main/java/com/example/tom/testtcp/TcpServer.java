@@ -9,8 +9,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-class TcpServer
-{
+class TcpServer {
 
     private boolean running = true;
 
@@ -50,9 +49,11 @@ class TcpServer
 
     private class MyServerSocket extends Thread {
         private final int port;
+        private int count;
 
         public MyServerSocket(int port) {
             this.port = port;
+            count = 0;
         }
 
         public void run() {
@@ -75,7 +76,8 @@ class TcpServer
                                 System.out.println("Socket on port " + port + " closed");
                                 break;
                             }
-                            System.out.println("Received (" + port + "): " + clientSentence);
+                            count++;
+                            System.out.println("Received (" + port + "): msg " + count);
                             capitalizedSentence = clientSentence.toUpperCase();
                             writer.write(capitalizedSentence);
                             writer.newLine();

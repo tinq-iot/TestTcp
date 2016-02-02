@@ -20,8 +20,8 @@
         android:layout_height="wrap_content"
         android:text="@string/start"
         android:id="@+id/MainActivity_btn_start"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/MainActivity_et_packetSize" android:layout_alignRight="@+id/MainActivity_et_ip"
+        android:layout_alignEnd="@+id/MainActivity_et_ip"/>
 
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
@@ -56,28 +56,68 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/MainActivity_et_port1"
-        android:layout_below="@+id/MainActivity_et_ip"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:inputType="numberDecimal"
-        android:hint="@string/port1" />
+        android:hint="@string/port1"
+        android:layout_below="@+id/MainActivity_et_ip" android:layout_toRightOf="@+id/textView"
+        android:layout_toEndOf="@+id/textView"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/MainActivity_et_port2"
-        android:layout_below="@+id/MainActivity_pb_1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:inputType="numberDecimal"
-        android:hint="@string/port2" />
+        android:hint="@string/port2"
+        android:layout_below="@+id/MainActivity_pb_1" android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/MainActivity_tv_log"
-        android:layout_below="@+id/MainActivity_pb_2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        tools:text="Log messages here..."
+        android:layout_below="@+id/MainActivity_et_nrPackets" android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/port1Desc"
+        android:id="@+id/textView"
+        android:layout_above="@+id/MainActivity_pb_1" android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/port2Desc"
+        android:id="@+id/textView2"
+        android:layout_above="@+id/MainActivity_pb_2" android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/packetSize"
+        android:id="@+id/textView3" android:layout_below="@+id/MainActivity_pb_2" android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="5"
+        android:id="@+id/MainActivity_et_packetSize"
+        android:layout_alignTop="@+id/textView3" android:layout_toRightOf="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/msgCount"
+        android:id="@+id/textView4" android:layout_below="@+id/MainActivity_et_packetSize"
+        android:layout_alignParentLeft="true" android:layout_alignParentStart="true"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="5"
+        android:id="@+id/MainActivity_et_nrPackets"
+        android:layout_below="@+id/MainActivity_et_packetSize" android:layout_toRightOf="@+id/textView4"
+        android:layout_toEndOf="@+id/textView4"/>
 
 </RelativeLayout>

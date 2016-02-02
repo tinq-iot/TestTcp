@@ -5,4 +5,8 @@
     <string name="port2">Port 2</string>
     <string name="ip_mask">xxx.xxx.xxx.xxx</string>
     <string name="start">Start</string>
+    <string name="port1Desc">Port 1:</string>
+    <string name="port2Desc">Port 2:</string>
+    <string name="packetSize">Packet Size (bytes):</string>
+    <string name="msgCount">Nr of packets</string>
 </resources>

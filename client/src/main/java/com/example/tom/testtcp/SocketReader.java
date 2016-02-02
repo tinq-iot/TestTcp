@@ -30,17 +30,13 @@ public class SocketReader implements Runnable {
                     break;
                 }
                 counter++;
-                MyLog.d(TAG, "(" + counter + ") Read from " + port + ": " + line);
+                MyLog.d(TAG, "(" + counter + ") Read from " + port);
                 cb.onMessageArrived(port, line);
-
-                if (counter % Constants.TEST_MSG_COUNT == 0) {
-                    MyLog.d(TAG, "------------------------------------------------------");
-                    MyLog.d(TAG, "----- got " + counter + " messages on port " + port + " ---");
-                    MyLog.d(TAG, "------------------------------------------------------");
-                }
             } while (running);
         } catch (Exception e) {
-            MyLog.e(TAG, "Error reading socket " + port, e);
+            if (running) {
+                MyLog.e(TAG, "Error reading socket " + port, e);
+            }
         }
         MyLog.d(TAG, "Socket " + port + " closed");
     }
